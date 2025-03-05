@@ -1,0 +1,23 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: account-service
+  datasource:
+    host: localhost
+    port: 5432
+    dbname: investment_banking_db
+    url: jdbc:postgresql://${spring.datasource.host}:${spring.datasource.port}/${spring.datasource.dbname}
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    jpa:
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+      show-sql: true
+      hibernate:
+        ddl-auto: update
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

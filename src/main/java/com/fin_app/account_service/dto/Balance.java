@@ -1,0 +1,18 @@
+package com.fin_app.account_service.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Balance {
+    private String currency;
+    private BigDecimal value;
+
+}
