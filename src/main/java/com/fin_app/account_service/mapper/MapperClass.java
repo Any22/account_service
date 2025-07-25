@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class MapperClass {
     private final AccountRepository accountRepository;
 
-    public Long mapToAccount (NewAccount customer, NewAccountRequest newAccountRequest) throws ResourceNotFoundException {
+    public Long mapToAccount (Customer customer, NewAccountRequest newAccountRequest) throws ResourceNotFoundException {
       NewAccount dto =  NewAccount.builder()
               .customerId(customer.getCustomerId())
               .userName(customer.getUserName())
@@ -46,13 +46,13 @@ log.info("Inside entity function : {}", newAccount1.getCustomerId());
     }
 
     private void savingToDb(NewAccountEntity entity) {
-        accountRepository.save(entity);
+        accountRepository.saveAndFlush(entity);
     }
 
     private Long gettingFromDb (Long customerId) throws ResourceNotFoundException {
         NewAccountEntity newAccountEntity= accountRepository.findById(customerId)
                 .orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " + customerId));
-        log.info("The account Entity is {}",newAccountEntity);
+        log.info("The account Entity is {}",newAccountEntity.getAccountId());
         return newAccountEntity.getAccountId();
 
     }
