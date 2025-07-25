@@ -13,6 +13,5 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class Balance {
     private String currency;
-    private BigDecimal value;
-
+    private BigDecimal amount;
 }

@@ -6,7 +6,7 @@ spring:
   datasource:
     host: localhost
     port: 5432
-    dbname: investment_banking_db
+    dbname: financial_app
     url: jdbc:postgresql://${spring.datasource.host}:${spring.datasource.port}/${spring.datasource.dbname}
     username: postgres
     password: postgres

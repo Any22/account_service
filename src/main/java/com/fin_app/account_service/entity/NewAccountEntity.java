@@ -1,10 +1,8 @@
 package com.fin_app.account_service.entity;
 
+import com.fin_app.account_service.dto.Balance;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.math.BigDecimal;
-import java.util.UUID;
 
 @Entity
 @Table(name = "account_table")
@@ -14,28 +12,18 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NewAccountEntity {
-    // private String customerId;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id", nullable = false)
-    private UUID accountId;
+    private Long accountId;
 
-    @Column(name = "account_name", nullable = false)
-    private String accountHolderName;
+    @Column(name = "customer_id", nullable = false)
+    private Long customerId;
 
-    @Column(name = "account_type", nullable = false)
-    private String accountType;
+    @Column(name = "user_name", nullable = false)
+    private String userName;
 
-    @Column(name = "currency", nullable = false)
-    private String currency;
-
-    @Column(name = "amount", nullable = false)
-    private BigDecimal value;
-
-    @Column(name = "branch_code", nullable = false)
-    private String branchCode;
-
-    @Column(name = "interest_rate", nullable = false)
-    private Double interestRate;
+    @Embedded
+    private Balance balance;
 
 }

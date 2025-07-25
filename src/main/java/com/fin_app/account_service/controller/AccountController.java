@@ -9,30 +9,33 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.concurrent.Callable;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
+@RequestMapping("v1/api/accounts")
 @Slf4j
 @Validated
 @RequiredArgsConstructor
 public class AccountController {
     private  final AccountService accountService;
-
-    @PostMapping(value={"v1/api/accounts"}, consumes= APPLICATION_JSON_VALUE)
-    public ResponseEntity<NewAccount> creatingNewAccount(@Valid @RequestBody NewAccountRequest newAccountRequest){
-
+    // As a registered user, I should be able to create a new account
+    @PostMapping(value={"/account"}, consumes= APPLICATION_JSON_VALUE)
+    public Callable<ResponseEntity<String>> creatingNewAccount(@Valid @RequestBody NewAccountRequest newAccountRequest){
         try{
-             NewAccount response = accountService.createNewAccount(newAccountRequest);
-            return new ResponseEntity<>(response,HttpStatus.CREATED);
+            return ()-> {
+                String message = accountService.createNewAccount(newAccountRequest);
+                return new ResponseEntity<>(message,HttpStatus.CREATED);
+            };
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-
     }
+
+
+
 }

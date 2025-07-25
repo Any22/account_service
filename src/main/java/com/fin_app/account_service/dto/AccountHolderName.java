@@ -1,18 +1,17 @@
 package com.fin_app.account_service.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 @Builder
-public class NewAccount {
-    private Long accountId;
-    private Long customerId;
-    private String userName;
-    private Balance balance;
+@NoArgsConstructor
+@AllArgsConstructor
+public class AccountHolderName {
+    private String firstName;
+    private String lastName;
 }
-
-
