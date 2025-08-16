@@ -2,15 +2,16 @@ package com.fin_app.account_service.exception;
 
 import java.io.Serial;
 
-public class ResourceNotFoundException extends Exception{
+public class NoDataFoundException extends Exception{
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public ResourceNotFoundException() {
+    public NoDataFoundException() {
+
         super();
     }
 
-    public ResourceNotFoundException(String message) {
+    public NoDataFoundException(String message) {
         super(message);
     }
 

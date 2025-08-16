@@ -5,7 +5,7 @@ import com.fin_app.account_service.dto.Customer;
 import com.fin_app.account_service.dto.NewAccount;
 import com.fin_app.account_service.dto.NewAccountRequest;
 import com.fin_app.account_service.entity.NewAccountEntity;
-import com.fin_app.account_service.exception.ResourceNotFoundException;
+import com.fin_app.account_service.exception.NoDataFoundException;
 import com.fin_app.account_service.respository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 public class MapperClass {
     private final AccountRepository accountRepository;
 
-    public Long mapToAccount (Customer customer, NewAccountRequest newAccountRequest) throws ResourceNotFoundException {
+    public Long mapToAccount (Customer customer, NewAccountRequest newAccountRequest) throws NoDataFoundException {
       NewAccount dto =  NewAccount.builder()
               .customerId(customer.getCustomerId())
               .userName(customer.getUserName())
@@ -30,7 +30,7 @@ public class MapperClass {
     return this.convertToEntity(dto);
     }
 
-    public Long convertToEntity (NewAccount newAccount) throws ResourceNotFoundException {
+    public Long convertToEntity (NewAccount newAccount) throws NoDataFoundException {
         NewAccountEntity newAccount1 = NewAccountEntity.builder()
                 .customerId(newAccount.getCustomerId())
                 .userName(newAccount.getUserName())
@@ -49,9 +49,9 @@ log.info("Inside entity function : {}", newAccount1.getCustomerId());
         accountRepository.saveAndFlush(entity);
     }
 
-    private Long gettingFromDb (Long customerId) throws ResourceNotFoundException {
+    private Long gettingFromDb (Long customerId) throws NoDataFoundException {
         NewAccountEntity newAccountEntity= accountRepository.findById(customerId)
-                .orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " + customerId));
+                .orElseThrow(() -> new NoDataFoundException("Customer not found with id: " + customerId));
         log.info("The account Entity is {}",newAccountEntity.getAccountId());
         return newAccountEntity.getAccountId();
 

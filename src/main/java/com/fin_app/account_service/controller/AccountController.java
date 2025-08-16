@@ -24,14 +24,14 @@ public class AccountController {
     private  final AccountService accountService;
     // As a registered user, I should be able to create a new account
     @PostMapping(value={"/account"}, consumes= APPLICATION_JSON_VALUE)
-    public Callable<ResponseEntity<String>> creatingNewAccount(@Valid @RequestBody NewAccountRequest newAccountRequest){
+    public Callable<ResponseEntity<?>> creatingNewAccount(@Valid @RequestBody NewAccountRequest newAccountRequest) throws Exception {
         try{
             return ()-> {
                 String message = accountService.createNewAccount(newAccountRequest);
                 return new ResponseEntity<>(message,HttpStatus.CREATED);
             };
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new Exception(e);
         }
 
     }
