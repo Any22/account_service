@@ -1,6 +1,5 @@
 package com.fin_app.account_service.controller;
 
-import com.fin_app.account_service.dto.NewAccount;
 import com.fin_app.account_service.dto.NewAccountRequest;
 import com.fin_app.account_service.service.AccountService;
 import jakarta.validation.Valid;
